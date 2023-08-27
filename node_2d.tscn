@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://voa2m3vsq8nh"]
+
+[ext_resource type="Texture2D" uid="uid://cplb4u4a3hmql" path="res://assets/Seasonal Tilesets/brilho.png" id="1_c7wwr"]
+[ext_resource type="Texture2D" uid="uid://bajo6ghe20tr7" path="res://assets/Sprite Pack 2/2 - Mr. Mochi/Idle (32 x 32).png" id="1_hyu1s"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="1_jbhro"]
+[ext_resource type="Texture2D" uid="uid://bkt80ivh1pplf" path="res://assets/Sprite Pack 2/2 - Mr. Mochi/Running (32 x 32).png" id="3_3oigm"]
+
+[sub_resource type="Gradient" id="Gradient_hvjcr"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ky42v"]
+gradient = SubResource("Gradient_hvjcr")
+fill_from = Vector2(1, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0dvru"]
+texture = ExtResource("1_c7wwr")
+margins = Vector2i(7, 2)
+texture_region_size = Vector2i(9, 21)
+0:0/animation_frame_0/duration = 0.4
+0:0/animation_frame_1/duration = 0.4
+0:0/animation_frame_2/duration = 0.4
+0:0/animation_frame_3/duration = 0.4
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2seqv"]
+sources/1 = SubResource("TileSetAtlasSource_0dvru")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_arumk"]
+radius = 11.0
+height = 22.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a1q5e"]
+atlas = ExtResource("1_hyu1s")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_je1sg"]
+atlas = ExtResource("1_hyu1s")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mm2a"]
+atlas = ExtResource("3_3oigm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j5agx"]
+atlas = ExtResource("3_3oigm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a58u7"]
+atlas = ExtResource("3_3oigm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vk5y3"]
+atlas = ExtResource("3_3oigm")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y1nv1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a1q5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_je1sg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mm2a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j5agx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a58u7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vk5y3")
+}],
+"loop": true,
+"name": &"running",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p46ev"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 639.0
+offset_bottom = 320.0
+texture = SubResource("GradientTexture2D_ky42v")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_2seqv")
+cell_quadrant_size = 18
+format = 2
+layer_0/tile_data = PackedInt32Array(196615, 1, 0, 65560, 1, 0, 1048609, 1, 0, 1179651, 1, 0, 524290, 1, 0, 196611, 1, 0, 131105, 1, 0, 327717, 1, 0, 720934, 1, 0)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_jbhro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(120, 178)
+shape = SubResource("CapsuleShape2D_arumk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+position = Vector2(120, 170)
+scale = Vector2(1.25, 1.17925)
+sprite_frames = SubResource("SpriteFrames_y1nv1")
+animation = &"running"
+autoplay = "idle"
+
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="."]
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D2"]
+position = Vector2(473, 181)
+shape = SubResource("CircleShape2D_p46ev")
+debug_color = Color(0.560784, 0, 0, 0.419608)
